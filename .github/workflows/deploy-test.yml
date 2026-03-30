@@ -1,0 +1,39 @@
+name: Deploy to Test
+
+on:
+  push:
+    branches:
+      - test
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-test
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy to Test
+    runs-on: ubuntu-latest
+    environment:
+      name: test
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages (test)
+        id: deployment
+        uses: actions/deploy-pages@v4

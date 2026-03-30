@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SELEKTIERT_ — Form & Function</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --blue:#ffe137;            /* energetic electric blue (inspired by screenshot) */
+      --blue-ink:#ffe137;        /* deep ink for small UI text */
+      --ink:#ffe137;
+      --muted:#ffe137;
+      --paper:#f7f8fb;           /* off-white background */
+      --card:#ffe137;            /* hero frame */
+      --radius-xl:26px;
+      --radius-lg:16px;
+      --grid: min(1200px, 92vw);
+
+      /* Original site accents kept for events */
+      --yellow:#ffe137;
+      --red:#d30505;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper)}
+    a{color:inherit}
+
+    /* ===== Top Nav ===== */
+    .nav{position:sticky;top:0;z-index:50;background:#fff;backdrop-filter:saturate(150%) blur(6px);box-shadow:0 1px 0 rgba(18,23,40,.08)}
+    .nav-inner{max-width:var(--grid);margin:0 auto;padding:14px 8px;display:flex;align-items:center;gap:18px}
+    .logo{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;border:2px solid var(--blue);color:var(--blue);font-weight:900;font-size:22px;line-height:1}
+    .nav-spacer{flex:1}
+    .nav a{font-weight:600;color:var(--blue);text-decoration:none}
+    .nav a:hover{text-decoration:underline}
+    .pill{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;border:2px solid var(--blue);color:var(--blue);font-weight:700;text-decoration:none}
+    .pill:hover{background:var(--blue);color:#fff}
+
+    /* ===== Section framing grid lines ===== */
+    .frame{max-width:var(--grid);margin:0 auto}
+    .grid-lines{border-left:2px solid rgba(0, 0, 0, 0.25);border-right:2px solid rgba(0, 0, 0, 0.25)}
+
+    /* ===== Hero ===== */
+    .hero{padding:24px 0 0}
+    .hero-card{background:var(--card);border-radius:0;min-height:400px;color:#eaedf6;position:relative;overflow:hidden}
+    .hero-meta{position:absolute;left:24px;right:24px;top:14px;display:flex;justify-content:space-between;font-size:12px;color:#000000;letter-spacing:.08em}
+    .hero-stage{display:grid;place-items:center;min-height:420px}
+    .hero-stage .mark{display:flex;align-items:center;justify-content:center;width:120px;height:120px;border-radius:28px;background:#fff;color:#111;font-weight:900;font-size:64px}
+    .hero-cta{position:absolute;right:24px;bottom:22px}
+
+    /* Simple gallery slider */
+    .gallery{position:absolute;inset:0;opacity:.12;filter:grayscale(1) contrast(1.1);}
+    .gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:fade 18s linear infinite;}
+    .gallery img:nth-child(2){animation-delay:6s}
+    .gallery img:nth-child(3){animation-delay:12s}
+    @keyframes fade{0%{opacity:0}6%{opacity:1}28%{opacity:1}34%{opacity:0}100%{opacity:0}}
+
+    /* ===== Cheeky Text ===== */
+    .cheeky{padding:32px 0}
+    .cheeky h1{font-size:clamp(40px,8vw,76px);line-height:1.06;margin:0;padding:24px; border-top:2px solid rgba(11,42,132,.25); border-bottom:2px solid rgba(11,42,132,.25); color:var(--blue)}
+
+    /* ===== About ===== */
+    .about{padding:34px 0}
+    .about .wrap{display:grid;grid-template-columns:1fr 2fr;gap:28px;padding:24px;border-bottom:2px solid rgba(11,42,132,.25)}
+    .eyebrow{font-size:12px;letter-spacing:.12em;color:var(--blue-ink);font-weight:700}
+    .about p{margin:0;font-size:18px;line-height:1.75;color:#222}
+
+    /* ===== Events (keep original vibe with yellow accent) ===== */
+    .events{padding:36px 0}
+    .events h2{font-size:28px;margin:0 0 16px 0;padding:0 24px;color:#111}
+    .event-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;padding:0 24px}
+    .event{background:#fff;border:2px solid #eceef6;border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+    .event .thumb{aspect-ratio:16/9;background:#111 url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1400&auto=format&fit=crop') center/cover no-repeat}
+    .event .body{padding:14px 14px 16px}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:#111;font-weight:800;padding:6px 10px;border-radius:999px;font-size:12px}
+    .event h3{margin:10px 0 6px;font-size:18px}
+    .meta{font-size:13px;color:#445}
+    .event .cta{margin-top:auto;padding:14px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:999px;border:2px solid var(--ink);font-weight:700;text-decoration:none}
+    .btn:hover{background:var(--ink);color:#fff}
+
+    /* ===== Past events (cards lighter) ===== */
+    .past{padding:10px 24px 40px}
+    .past-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .past .card{border:1px dashed rgba(34,102,255,.35);border-radius:12px;background:#fff;padding:12px}
+    .past .card h4{margin:6px 0 4px;font-size:16px}
+    .past .card .meta{color:#667}
+
+    /* ===== Footer (rebuilt) ===== */
+    .site-footer{background:#0e0f12;color:#e8eaf1;border-top:4px solid var(--blue);margin-top:40px}
+    .footer-wrap{max-width:var(--grid);margin:0 auto;padding:38px 22px;display:grid;gap:28px;grid-template-columns:1.2fr 1fr 1fr 1.2fr}
+    .site-footer a{color:var(--yellow);text-decoration:none}
+    .site-footer a:hover{color:var(--red);text-decoration:underline}
+    .footer-brand .k{display:flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:14px;border:2px solid var(--yellow);color:var(--yellow);font-weight:900;font-size:26px;margin-bottom:10px}
+    .site-footer h5{margin:0 0 10px;font-size:14px;letter-spacing:.05em;color:#fff}
+    .footer-links ul,.social{list-style:none;margin:0;padding:0}
+    .footer-links li+li,.social li+li{margin-top:8px}
+    .footer-legal details{background:#121319;border:1px solid #1d2131;border-radius:10px;padding:10px 12px;margin:0 0 10px}
+    .footer-legal summary{cursor:pointer;font-weight:700}
+    .footer-bottom{border-top:1px solid #1d2131;text-align:center;padding:12px 22px 22px;color:#b9bfd4}
+
+    @media (max-width:960px){
+      .about .wrap{grid-template-columns:1fr}
+      .footer-wrap{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:560px){
+      .footer-wrap{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="logo">K</div>
+      <div class="nav-spacer"></div>
+      <a href="#gallery">Gallery</a>
+      <a href="#about" style="margin-left:18px">About</a>
+      <a href="#upcoming" style="margin-left:18px">Upcoming</a>
+      <a class="pill" href="#contact" style="margin-left:18px">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== HERO (gallery) ===== -->
+    <section class="frame grid-lines hero" id="gallery">
+      <div class="hero-card">
+        <div class="gallery" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?q=80&w=1600&auto=format&fit=crop" alt=""/>
+          <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1600&auto=format&fit=crop" alt=""/>
+          <img src="https://images.unsplash.com/photo-1501706362039-c06b2d715385?q=80&w=1600&auto=format&fit=crop" alt=""/>
+        </div>
+        
+        <div class="hero-stage">
+          <div class="mark">K</div>
+        </div>
+        <div class="hero-cta">
+          <a class="pill" href="#work">View our Work ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Cheeky Text ===== -->
+    <section class="frame grid-lines cheeky">
+      <h1>Building brands for people who are bored of blending in.</h1>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section class="frame grid-lines about" id="about">
+      <div class="wrap">
+        <div>
+          <div class="eyebrow">ABOUT</div>
+        </div>
+        <div>
+          <p>
+            SELEKTIERT_ is a Vienna‑based collective at the intersection of music, food, and contemporary culture. We craft events and identities with a clear point of view: bold, useful, and a little bit cheeky. From club nights and kitchen takeovers to visual systems and sounds, our process balances form and function — the vibe is intentional, the details are obsessive.
+          </p>
+          <p style="margin-top:14px">
+            We collaborate with artists, venues, and brands to create moments that feel inevitable once you’ve experienced them. Strategy first, then design, then the dance floor.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Upcoming Events ===== -->
+    <section class="frame grid-lines events" id="upcoming">
+      <h2>Upcoming</h2>
+      <div class="event-grid">
+        <article class="event">
+          <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1514524565345-63564796e7a4?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="body">
+            <span class="badge">FRI • 13 SEP — VIENNA</span>
+            <h3>Selektiert_ Club Night — Vol. 07</h3>
+            <div class="meta">Doors 22:00 • Fluc Wanne</div>
+          </div>
+          <div class="cta"><a class="btn" href="#">Get Tickets</a></div>
+        </article>
+        <article class="event">
+          <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1516302350523-4c1ec0c17a6a?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="body">
+            <span class="badge">SAT • 28 SEP — VIENNA</span>
+            <h3>Kitchen Takeover × Guest Chef</h3>
+            <div class="meta">From 18:00 • Secret Location</div>
+          </div>
+          <div class="cta"><a class="btn" href="#">RSVP</a></div>
+        </article>
+        <article class="event">
+          <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1483412033650-1015ddeb83d1?q=80&w=1600&auto=format&fit=crop')"></div>
+          <div class="body">
+            <span class="badge">THU • 10 OCT — VIENNA</span>
+            <h3>Listening Session — New Works</h3>
+            <div class="meta">19:00 • Kunsthalle Studio</div>
+          </div>
+          <div class="cta"><a class="btn" href="#">Details</a></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== Past Events ===== -->
+    <section class="frame grid-lines past" id="past">
+      <h2 style="padding:0 0 12px 0; margin:0 24px 8px">Past Events</h2>
+      <div class="past-list">
+        <div class="card">
+          <div class="meta">JUN 2025 • VIENNA</div>
+          <h4>Club Night — Vol. 06</h4>
+          <div class="meta">Fluc Wanne • Sold Out</div>
+        </div>
+        <div class="card">
+          <div class="meta">APR 2025 • VIENNA</div>
+          <h4>Vernissage — Spring Lines</h4>
+          <div class="meta">Kleiner Salon</div>
+        </div>
+        <div class="card">
+          <div class="meta">FEB 2025 • VIENNA</div>
+          <h4>Kitchen Takeover × Ramen</h4>
+          <div class="meta">Pop‑up</div>
+        </div>
+        <div class="card">
+          <div class="meta">NOV 2024 • VIENNA</div>
+          <h4>Selektiert_ Club Night — Vol. 05</h4>
+          <div class="meta">Pratersauna</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer" id="contact">
+    <div class="footer-wrap">
+      <div class="footer-brand">
+        <div class="k">K</div>
+        <p>SELEKTIERT_ is a Vienna‑based collective supporting music, art & culinary projects through curated events and collaborations.</p>
+      </div>
+
+      <nav class="footer-links">
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#upcoming">Upcoming</a></li>
+          <li><a href="#past">Past</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h5>Contact</h5>
+        <p>Email: <a href="mailto:selektiert.verein@gmail.com">selektiert.verein@gmail.com</a><br/>Vienna, Austria</p>
+        <ul class="social">
+          <li><a href="https://instagram.com/selektiert_" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://soundcloud.com/selektiert" target="_blank" rel="noopener">SoundCloud</a></li>
+          <li><a href="#" target="_blank" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-legal">
+        <h5>Legal</h5>
+        <details>
+          <summary>Impressum</summary>
+          <p>SELEKTIERT_ – Verein zur Förderung von Musik, Kunst & Kulinarik. Registered non‑profit association in Vienna, Austria. Responsible for content: SELEKTIERT_.</p>
+        </details>
+        <details>
+          <summary>Privacy</summary>
+          <p>We process personal data only when you contact us (e.g., email). Data is used solely to handle your request and is not shared with third parties unless required by law.</p>
+        </details>
+        <details>
+          <summary>Liability</summary>
+          <p>External links are provided with care; we assume no liability for their content. We strive for accuracy but provide no guarantee for completeness or timeliness.</p>
+        </details>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © <span id="year"></span> SELEKTIERT_. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
