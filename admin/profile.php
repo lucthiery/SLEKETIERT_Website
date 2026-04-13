@@ -2,6 +2,7 @@
 require_once __DIR__ . '/includes/auth.php';
 $current_user = require_admin();
 $db = get_db();
+$topbar_page = 'members';
 
 $id = (int)($_GET['id'] ?? 0);
 if (!$id) { header('Location: /admin/dashboard.php'); exit; }
@@ -121,19 +122,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body { background: #f4f4f4; font-family: 'Segoe UI', sans-serif; }
-        .topbar {
-            background: #ffe137;
-            padding: 0.75rem 1.5rem;
-            display: flex; align-items: center; justify-content: space-between;
-            position: sticky; top: 0; z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-        .topbar .brand { font-weight: 900; font-size: 1.2rem; letter-spacing: 2px; }
         .content { padding: 2rem 1.5rem; max-width: 820px; margin: auto; }
         .card-profile { border: none; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.09); }
-        .avatar-wrap {
-            text-align: center; padding: 2rem 1rem 1rem;
-        }
+        .avatar-wrap { text-align: center; padding: 2rem 1rem 1rem; }
         .avatar-wrap img, .avatar-placeholder-lg {
             width: 110px; height: 110px;
             border-radius: 50%; object-fit: cover;
@@ -154,21 +145,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             font-weight: 700; font-size: 0.7rem; text-transform: uppercase;
             letter-spacing: 2px; color: #888; margin-bottom: 0.4rem;
         }
-        .logout-link { color: #000; text-decoration: none; font-weight: 600; font-size: 0.85rem; }
-        .logout-link:hover { color: #d30505; }
-        .back-link { color: #000; text-decoration: none; font-weight: 600; }
-        .back-link:hover { color: #555; }
     </style>
 </head>
 <body>
-
-<div class="topbar">
-    <div class="d-flex align-items-center gap-3">
-        <a href="/admin/dashboard.php" class="back-link"><i class="fas fa-arrow-left me-1"></i>Back</a>
-        <span class="brand">SELEKTIERT_</span>
-    </div>
-    <a href="/admin/logout.php" class="logout-link"><i class="fas fa-sign-out-alt me-1"></i>Logout</a>
-</div>
+<?php include __DIR__ . '/includes/topbar.php'; ?>
 
 <div class="content">
 

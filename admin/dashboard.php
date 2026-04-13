@@ -7,42 +7,26 @@ $users = $db->query('SELECT id, first_name, last_name, email, role, is_admin, pr
 
 $flash = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
+
+$topbar_page = 'members';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SELEKTIERT Admin — Dashboard</title>
+    <title>SELEKTIERT Admin — Members</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body { background: #f4f4f4; font-family: 'Segoe UI', sans-serif; }
-        .topbar {
-            background: #ffe137;
-            padding: 0.75rem 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-        .topbar .brand { font-weight: 900; font-size: 1.2rem; letter-spacing: 2px; }
-        .topbar .user-info { font-size: 0.85rem; color: #333; }
         .content { padding: 2rem 1.5rem; max-width: 1100px; margin: auto; }
-        .page-title { font-weight: 800; font-size: 1.6rem; margin-bottom: 1.5rem; }
+        .page-title { font-weight: 800; font-size: 1.6rem; }
         .table thead th { background: #111; color: #fff; font-weight: 600; border: none; }
         .table tbody tr:hover { background: #fffbe0; }
-        .avatar-sm {
-            width: 40px; height: 40px;
-            border-radius: 50%; object-fit: cover;
-            background: #ddd;
-        }
+        .avatar-sm { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
         .avatar-placeholder {
-            width: 40px; height: 40px;
-            border-radius: 50%;
+            width: 40px; height: 40px; border-radius: 50%;
             background: #ffe137;
             display: inline-flex; align-items: center; justify-content: center;
             font-weight: 700; font-size: 0.85rem; color: #000;
@@ -51,22 +35,10 @@ unset($_SESSION['flash']);
         .btn-view { background: #ffe137; border: none; color: #000; font-weight: 600; font-size: 0.8rem; }
         .btn-view:hover { background: #f0d000; }
         .card-stat { border: none; border-radius: 10px; background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
-        .logout-link { color: #000; text-decoration: none; font-weight: 600; font-size: 0.85rem; }
-        .logout-link:hover { color: #d30505; }
     </style>
 </head>
 <body>
-
-<div class="topbar">
-    <span class="brand">SELEKTIERT_</span>
-    <div class="d-flex align-items-center gap-3">
-        <a href="/admin/profile.php?id=<?= $current_user['id'] ?>" class="user-info" style="text-decoration:none;color:#000;">
-            <i class="fas fa-user-shield me-1"></i>
-            <?= htmlspecialchars($current_user['first_name'] . ' ' . $current_user['last_name']) ?>
-        </a>
-        <a href="/admin/logout.php" class="logout-link"><i class="fas fa-sign-out-alt me-1"></i>Logout</a>
-    </div>
-</div>
+<?php include __DIR__ . '/includes/topbar.php'; ?>
 
 <div class="content">
     <div class="row g-3 mb-4">
@@ -114,8 +86,7 @@ unset($_SESSION['flash']);
                     <tr>
                         <td>
                             <?php if ($u['profile_picture']): ?>
-                                <img src="/admin/uploads/<?= htmlspecialchars($u['profile_picture']) ?>"
-                                     class="avatar-sm" alt="">
+                                <img src="/admin/uploads/<?= htmlspecialchars($u['profile_picture']) ?>" class="avatar-sm" alt="">
                             <?php else: ?>
                                 <span class="avatar-placeholder">
                                     <?= strtoupper(substr($u['first_name'],0,1) . substr($u['last_name'],0,1)) ?>

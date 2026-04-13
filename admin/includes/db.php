@@ -1,5 +1,7 @@
 <?php
-define('DB_PATH', '/var/data/selektiert/selektiert.db');
+$_server_db = '/var/data/selektiert/selektiert.db';
+$_local_db  = __DIR__ . '/../../.db/selektiert.db';
+define('DB_PATH', is_dir(dirname($_server_db)) ? $_server_db : $_local_db);
 define('UPLOADS_DIR', __DIR__ . '/../uploads/');
 define('UPLOADS_URL', '/admin/uploads/');
 
