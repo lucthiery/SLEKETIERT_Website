@@ -36,5 +36,7 @@ jobs:
             --exclude='certs/' \
             --exclude='.gitignore' \
             --exclude='.DS_Store' \
+            --exclude='admin/uploads/' \
+            --exclude='admin/setup.php' \
             -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             ./ root@46.225.179.9:/var/www/selektiert.com/
