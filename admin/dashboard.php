@@ -60,10 +60,10 @@ unset($_SESSION['flash']);
 <div class="topbar">
     <span class="brand">SELEKTIERT_</span>
     <div class="d-flex align-items-center gap-3">
-        <span class="user-info">
+        <a href="/admin/profile.php?id=<?= $current_user['id'] ?>" class="user-info" style="text-decoration:none;color:#000;">
             <i class="fas fa-user-shield me-1"></i>
             <?= htmlspecialchars($current_user['first_name'] . ' ' . $current_user['last_name']) ?>
-        </span>
+        </a>
         <a href="/admin/logout.php" class="logout-link"><i class="fas fa-sign-out-alt me-1"></i>Logout</a>
     </div>
 </div>
